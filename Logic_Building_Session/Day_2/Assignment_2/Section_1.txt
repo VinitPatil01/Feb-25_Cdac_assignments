@@ -1,0 +1,546 @@
+Snippet 1:
+public class Main {
+ public void main(String[] args) {
+ System.out.println("Hello, World!");
+ }
+} 
+
+Error: Main method is not static in class Main, please define the main method as:
+   public static void main(String[] args)
+
+Explanation: The static keyword is required because the JVM calls the main method without creating an instance of the class. 
+Without static, the JVM cannot access main directly, leading to a runtime error.
+
+fixed code:
+public class Main {
+ public static void main(String[] args) {
+ System.out.println("Hello, World!");
+ }
+}
+================================================================================================
+
+Snippet 2:
+public class Main {
+ static void main(String[] args) {
+ System.out.println("Hello, World!");
+ }
+} 
+
+Error: Main method not found in class Main, please define the main method as:
+   public static void main(String[] args)
+
+Explanation: The main method must be public because the JVM requires public access to invoke it; without it, the method is not accessible from outside the class.
+
+fixed code:
+
+public class Main {
+ public static void main(String[] args) {
+ System.out.println("Hello, World!");
+ }
+} 
+================================================================================================
+Snippet 3:
+public class Main {
+ public static int main(String[] args) {
+ System.out.println("Hello, World!");
+ return 0;
+ } 
+}
+
+Error: Main method must return a value of type void in class Main
+
+Explanation: The main method must have a void return type; using int violates the JVM's required method signature for program entry.
+
+
+fixed code: 
+
+public class Main {
+ public static void main(String[] args) {
+ System.out.println("Hello, World!");
+ } 
+}
+================================================================================================
+Snippet 4:
+public class Main {
+ public static void main() {
+ System.out.println("Hello, World!");
+ }
+} 
+
+Error: Main method not found in class Main
+
+Explanation: The main method must accept a String[] args parameter; without it, the JVM cannot identify it as the program entry point.
+
+fixed code:
+
+public class Main {
+ public static void main(String args []) {
+ System.out.println("Hello, World!");
+ }
+} 
+================================================================================================
+Snippet 5:
+public class Main {
+ public static void main(String[] args) {
+ System.out.println("Main method with String[] args");
+ }
+ public static void main(int[] args) {
+ System.out.println("Overloaded main method with int[] args");
+ }
+} 
+
+Observation: only Main method with string as arguments executes
+
+Explanation: Yes, you can have multiple overloaded main methods with different parameter types, 
+but only the public static void main(String[] args) method serves as the program's entry point for the JVM. 
+The overloaded main methods are treated as regular methods.
+================================================================================================
+Snippet 6:
+public class Main {
+ public static void main(String[] args) {
+ int x = y + 10;
+ System.out.println(x);
+ }
+} 
+
+Error: Main.java:3: error: cannot find symbol
+ int x = y + 10;
+         ^
+  symbol:   variable y
+  location: class Main
+1 error
+
+Explanation: Variables must be declared before use because Java is a statically typed language. 
+The compiler needs to know the variable's type and memory allocation to perform operations safely and prevent runtime errors.
+
+fixed code:
+
+public class Main {
+ public static void main(String[] args) {
+    int y=10;
+ int x = y + 10;
+ System.out.println(x);
+ }
+}
+
+================================================================================================
+Snippet 7:
+public class Main {
+ public static void main(String[] args) {
+ int x = "Hello";
+ System.out.println(x);
+ }
+}
+
+Error: Main.java:3: error: incompatible types: String cannot be converted to int
+ int x = "Hello";
+
+Explanation: Java enforces type safety to prevent invalid operations by ensuring that variables hold only compatible data types.
+String should be used to print text as a out put and int should be used to print number(integer) as a output
+
+fixed code:
+public class Main {
+ public static void main(String[] args) {
+ String x = "Hello";
+ System.out.println(x);
+ }
+}
+================================================================================================
+Snippet 8:
+public class Main {
+ public static void main(String[] args) {
+ System.out.println("Hello, World!"
+ }
+}
+
+Error: ')' or ',' expected
+ System.out.println("Hello, World!"
+
+Explanation: ')' and ';' are missing,These errors prevent successful compilation because the Java compiler strictly enforces proper syntax for method calls and statement termination.
+
+fixed code:
+
+public class Main {
+ public static void main(String[] args) {
+ System.out.println("Hello, World!");
+ }
+}
+================================================================================================
+Snippet 9:
+public class Main {
+ public static void main(String[] args) {
+ int class = 10;
+ System.out.println(class);
+ }
+} 
+
+Error: <identifier> expected
+ int class = 10;
+
+Explanation:Reserved keywords in Java, like class, cannot be used as identifiers because they have predefined meanings in the language syntax. 
+Using them would cause ambiguity for the compiler, leading to a compile-time error
+
+fixed code:
+public class Main {
+ public static void main(String[] args) {
+ int num = 10;
+ System.out.println(num);
+ }
+} 
+================================================================================================
+Snippet 10:
+public class Main {
+ public void display() {
+ System.out.println("No parameters");
+ }
+ public void display(int num) {
+ System.out.println("With parameter: " + num);
+ }
+ public static void main(String[] args) {
+ display();
+ display(5);
+ }
+} 
+
+error: non-static method display() cannot be referenced from a static context
+ display();
+
+error: non-static method display(int) cannot be referenced from a static context
+ display(5);
+
+Explanation: code will fail to compile because the display() and display(int num) methods are non-static, while you are trying to call them directly from the static main method
+
+Is method overloading allowed?
+Yes, method overloading is allowed in Java. It occurs when multiple methods in the same class share the same name but have different parameter types, numbers, or both.
+
+fixed code:
+public class Main {
+ public static  void display() {
+ System.out.println("No parameters");
+ }
+ public static void display(int num) {
+ System.out.println("With parameter: " + num);
+ }
+ public static void main(String[] args) {
+ display();
+ display(5);
+ }
+} 
+================================================================================================
+Snippet 11:
+public class Main {
+ public static void main(String[] args) {
+ int[] arr = {1, 2, 3};
+ System.out.println(arr[5]);
+ }
+} 
+
+Error: Exception in thread "main" java.lang.ArrayIndexOutOfBoundsException: Index 5 out of bounds for length 3
+
+Explanation: This exception occurs when an attempt is made to access an array element outside its valid index range.
+
+fixed code:
+
+public class Main {
+ public static void main(String[] args) {
+ int[] arr = {1, 2, 3,4,5,6};
+ System.out.println(arr[5]);
+ }
+} 
+================================================================================================
+Snippet 12:
+public class Main {
+ public static void main(String[] args) {
+ while (true) {
+ System.out.println("Infinite Loop");
+ }
+ }
+}
+
+
+Explanation: The code causes an infinite loop because while(true) always evaluates to true; avoid it by adding a proper exit condition or a break statement.
+================================================================================================
+Snippet 13:
+public class Main {
+ public static void main(String[] args) {
+ String str = null;
+ System.out.println(str.length());
+ }
+} 
+
+Error: Exception in thread "main" java.lang.NullPointerException
+
+Explanation: A NullPointerException is thrown because you're trying to access the length of a null String reference.
+================================================================================================
+Snippet 14:
+public class Main {
+ public static void main(String[] args) {
+ double num = "Hello";
+ System.out.println(num);
+ }
+} 
+
+Error: incompatible types: String cannot be converted to double
+
+Explanation: Java enforces type safety to prevent invalid operations by ensuring that variables hold only compatible data types.
+================================================================================================
+Snippet 15:
+public class Main {
+ public static void main(String[] args) {
+ int num1 = 10;
+ double num2 = 5.5;
+ int result = num1 + num2;
+ System.out.println(result);
+ }
+} 
+
+Error: incompatible types: possible lossy conversion from double to int
+
+Explanation: A compile-time error occurs due to incompatible types; handle it by explicitly casting num2 to int or changing result to double.
+================================================================================================
+Snippet 16:
+public class Main {
+ public static void main(String[] args) {
+ int num = 10;
+ double result = num / 4;
+ System.out.println(result);
+ }
+} 
+
+Explanation: output of the code is 2.0 and the output is as expected because 'double' datatype is mentioned for the variable result 
+if we want the result to be integer i.e. 2 then 'int' should be the datatype of the variable result
+
+fixed code:
+
+public class Main {
+ public static void main(String[] args) {
+ int num = 10;
+ int result = num / 4;
+ System.out.println(result);
+ }
+}
+================================================================================================
+Snippet 17:
+public class Main {
+ public static void main(String[] args) {
+ int a = 10;
+ int b = 5;
+ int result = a ** b;
+ System.out.println(result);
+ }
+} 
+
+Error: illegal start of expression
+
+Explanation: The ** operator is not valid in Java because Java does not support an exponentiation operator we use Math.pow(a, b) instead.
+
+fixed code:
+public class Main {
+ public static void main(String[] args) {
+ int a = 10;
+ int b = 5;
+ double result =Math.pow(a, b);
+ System.out.println(result);
+ }
+} 
+================================================================================================
+Snippet 18:
+public class Main {
+ public static void main(String[] args) {
+ int a = 10;
+ int b = 5;
+ int result = a + b * 2;
+ System.out.println(result);
+ }
+} 
+
+Explanation: Operator precedence causes multiplication (*) to be evaluated before addition (+), resulting in 10 + (5 * 2) = 20.
+================================================================================================
+Snippet 19:
+public class Main {
+ public static void main(String[] args) {
+ int a = 10;
+ int b = 0;
+ int result = a / b;
+ System.out.println(result);
+ }
+} 
+
+Error: Exception in thread "main" java.lang.ArithmeticException: / by zero
+
+Explanation: Division by zero causes an ArithmeticException in Java because integer division by zero is mathematically undefined.
+================================================================================================
+Snippet 20:
+public class Main {
+ public static void main(String[] args) {
+ System.out.println("Hello, World")
+ }
+} 
+
+Error:error: ';' expected
+Explanation: Java requires each statement to be terminated with a ';' as part of its syntax rules to avoid compile-time errors.
+
+fixed code:
+public class Main {
+ public static void main(String[] args) {
+ System.out.println("Hello, World");
+ }
+} 
+================================================================================================
+Snippet 21:
+public class Main {
+ public static void main(String[] args) {
+ System.out.println("Hello, World!");
+ // Missing closing brace here
+}
+
+Error: reached end of file while parsing
+
+fixed code:
+public class Main {
+ public static void main(String[] args) {
+ System.out.println("Hello, World!");
+ // Missing closing brace here
+}
+}
+================================================================================================
+Snippet 22:
+public class Main {
+ public static void main(String[] args) {
+ static void displayMessage() {
+ System.out.println("Message");
+ }
+ }
+}
+
+
+error: illegal start of expression
+ static void displayMessage() {
+ 
+ error: class, interface, or enum expected
+ }
+
+ Explanation: Java does not allow method declarations inside other methods. Methods can only be defined within a class, not within another method.
+================================================================================================
+public class Confusion {
+ public static void main(String[] args) {
+ int value = 2;
+ switch(value) {
+ case 1:
+ System.out.println("Value is 1");
+ case 2:
+ System.out.println("Value is 2");
+ case 3:
+ System.out.println("Value is 3");
+ default:
+ System.out.println("Default case");
+ }
+ }
+} 
+
+ 
+output: Value is 2
+Value is 3
+Default case
+
+Explanation: In switch statement every statement is executed after the entered case value we can avoid it by using break statement inside each case after print statement
+
+fixed code:
+class Main {
+ public static void main(String[] args) {
+ int value = 2;
+ switch(value) {
+ case 1:
+ System.out.println("Value is 1");
+ break;
+ case 2:
+ System.out.println("Value is 2");
+  break;
+ case 3:
+ System.out.println("Value is 3");
+  break;
+ default:
+ System.out.println("Default case");
+ }
+ }
+}
+================================================================================================
+Snippet 24:
+public class MissingBreakCase {
+ public static void main(String[] args) {
+ int level = 1;
+ switch(level) {
+ case 1:
+ System.out.println("Level 1");
+ case 2:
+ System.out.println("Level 2");
+ case 3:
+ System.out.println("Level 3");
+ default:
+ System.out.println("Unknown level");
+ }
+ }
+} 
+
+
+Explanation: The break statement exits the switch block after executing the matched case, preventing fallthrough.
+================================================================================================
+Snippet 25: 
+
+public class Switch {
+ public static void main(String[] args) {
+ double score = 85.0;
+ switch(score) {
+ case 100:
+ System.out.println("Perfect score!");
+ break;
+ case 85:
+ System.out.println("Great job!");
+ break;
+ default:
+ System.out.println("Keep trying!");
+ }
+ }
+} 
+
+Error: incompatible types: possible lossy conversion from double to int
+
+Explanation: switch statement in Java only supports int, char, String, or enum types, not double
+
+fixed code:
+public class Main {
+ public static void main(String[] args) {
+ int score = 85;
+ switch(score) {
+ case 100:
+ System.out.println("Perfect score!");
+ break;
+ case 85:
+ System.out.println("Great job!");
+ break;
+ default:
+ System.out.println("Keep trying!");
+ }
+ }
+} 
+================================================================================================
+Snippet 26:
+public class Switch {
+ public static void main(String[] args) {
+ int number = 5;
+ switch(number) {
+ case 5:
+ System.out.println("Number is 5");
+ break;
+ case 5:
+ System.out.println("This is another case 5");
+ break;
+ default:
+ System.out.println("This is the default case");
+ }
+ }
+}
+
+Error: duplicate case label
+Explanation:The compiler throws a compile-time error because duplicate case labels are not allowed in Java. Each case label within a switch block must be unique to avoid ambiguity during execution.
+================================================================================================
